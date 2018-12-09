@@ -77,18 +77,6 @@ try {
     }
   });
 
-  let escapeMd = async text => {
-    // make sure we're dealing with a string
-    text = text.toString();
-
-    // Telegram Bot API supports *_[]()` markdown control characters
-    let specialChars = new RegExp("([\\\\`*_\\[]){1}", "g");
-
-    return text.replace(specialChars, match => {
-      return "\\" + match;
-    });
-  };
-
   let sendTg = async msg => {
     console.log("Sending to Telegram: " + msg);
 
@@ -106,25 +94,15 @@ try {
       return;
     }
 
-    let s =
-      "[" +
-      escapeMd(data.after.substr(0, 8)) +
-      "](" +
-      escapeMd(data.compare) +
-      ")";
+    let s = "[" + data.after.substr(0, 8) + "](" + data.compare + ")";
 
-    s +=
-      ": " +
-      escapeMd(data.pusher.name) +
-      ", (" +
-      escapeMd(data.pusher.email) +
-      ")";
+    s += ": " + data.pusher.name + ", (" + data.pusher.email + ")";
     s += " pushed " + data.commits.length;
     s +=
       " " + (data.commits.length === 1 ? "commit" : "commits") + " to " + ref;
 
     if (data.commits.length === 1) {
-      s += ": " + escapeMd(data.commits[0].message) + "";
+      s += ": " + data.commits[0].message + "";
     }
 
     await sendTg(s);
@@ -133,13 +111,13 @@ try {
   github.on("pull_request:" + config.git.reponame, async (ref, data) => {
     let s = "[Pull request #";
 
-    s += escapeMd(data.number);
-    s += "](" + escapeMd(data.pull_request.html_url) + ")";
+    s += data.number;
+    s += "](" + data.pull_request.html_url + ")";
 
-    s += " (" + escapeMd(data.pull_request.title) + ")";
+    s += " (" + data.pull_request.title + ")";
 
-    s += " " + escapeMd(data.action);
-    s += " by " + escapeMd(data.sender.login);
+    s += " " + data.action;
+    s += " by " + data.sender.login;
 
     await sendTg(s);
   });
@@ -147,39 +125,38 @@ try {
   github.on("issues:" + config.git.reponame, async (ref, data) => {
     let s = "[Issue #";
 
-    s += escapeMd(data.issue.number);
-    s += "](" + escapeMd(data.issue.html_url) + ")";
+    s += data.issue.number;
+    s += "](" + data.issue.html_url + ")";
 
-    s += " (" + escapeMd(data.issue.title) + ")";
-    s += " " + escapeMd(data.action);
+    s += " (" + data.issue.title + ")";
+    s += " " + data.action;
 
     if (data.action === "unassigned") {
-      s += " from " + escapeMd(data.assignee.login);
+      s += " from " + data.assignee.login;
     } else if (data.action === "assigned") {
-      s += " to " + escapeMd(data.assignee.login);
+      s += " to " + data.assignee.login;
     }
 
-    s += " by " + escapeMd(data.sender.login);
+    s += " by " + data.sender.login;
 
     await sendTg(s);
   });
 
   github.on("issue_comment:" + config.git.reponame, async (ref, data) => {
-    let s = escapeMd(data.sender.login) + " commented on [";
+    let s = data.sender.login + " commented on [";
     s += data.issue.pull_request ? "pull request" : "issue";
     s += " #";
-    s += escapeMd(data.issue.number);
-    s += "](" + escapeMd(data.comment.html_url) + ")";
+    s += data.issue.number;
+    s += "](" + data.comment.html_url + ")";
 
-    s += " (" + escapeMd(data.issue.title) + "): ";
+    s += " (" + data.issue.title + "): ";
 
-    s += escapeMd(ellipsize(data.comment.body, 120));
+    s += ellipsize(data.comment.body, 120);
 
     await sendTg(s);
   });
 
   github.listen();
-  
 } catch (e) {
   console.log(`Exception caught while loading config file:`);
   console.log(e);
