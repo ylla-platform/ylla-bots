@@ -1,7 +1,7 @@
 module.exports = {
     git: {
         secret: 'your-github-web-hook-secret',
-        reponame: 'testrepo',
+        reponame: '',
         host: '0.0.0.0',
         port: 3420
     },
