@@ -1,0 +1,29 @@
+{
+  "name": "github-telegram-webhook",
+  "version": "0.1.0",
+  "description": "GitHub web hooks for your Telegram groups",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/imaonuwa/telegit.git"
+  },
+  "keywords": [
+    "telegram",
+    "github"
+  ],
+  "author": "Onuwa Nnachi Isaac",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/imaonuwa/github-telegram-webhook/issues"
+  },
+  "homepage": "https://github.com/imaonuwa/github-telegram-webhook#readme",
+  "dependencies": {
+    "ellipsize": "0.0.2",
+    "githubhook": "^1.5.1",
+    "node-telegram-bot-api": "^0.21.1",
+    "yargs": "^4.7.1"
+  }
+}
