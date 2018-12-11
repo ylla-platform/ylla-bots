@@ -1,5 +1,5 @@
 {
-  "name": "github-telegram-webhook",
+  "name": "ylla-bot",
   "version": "0.1.0",
   "description": "GitHub web hooks for your Telegram groups",
   "main": "index.js",
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/imaonuwa/telegit.git"
+    "url": "git+https://github.com/ylla-platform/ylla-bots.git"
   },
   "keywords": [
     "telegram",
@@ -17,9 +17,9 @@
   "author": "Onuwa Nnachi Isaac",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/imaonuwa/github-telegram-webhook/issues"
+    "url": "https://github.com/ylla-platform/ylla-bots/issues"
   },
-  "homepage": "https://github.com/imaonuwa/github-telegram-webhook#readme",
+  "homepage": "https://github.com/ylla-platform/ylla-bots#readme",
   "dependencies": {
     "ellipsize": "0.0.2",
     "githubhook": "^1.5.1",
